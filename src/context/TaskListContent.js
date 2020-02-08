@@ -9,7 +9,9 @@ const TaskListContextProvider = props => {
     {title: 'Write some code', id: 3}
   ]);
 
-  const addTask = title => {
+const [editItem, setEditItem] = useState(null)
+
+const addTask = title => {
     setTasks([...tasks, { title, id: uuid() }])
   }
 
@@ -21,13 +23,29 @@ const TaskListContextProvider = props => {
    setTasks([]); 
  }
 
+ const findItem = id => {
+   const item = tasks.find(task => task.id === id)
+
+   setEditItem(item);
+ }
+
+const editTask = (title, id) => {
+  const newTasks = tasks.map(task => (task.id
+    === id ? {title, id} : task)); 
+
+    setTasks(newTasks); 
+}
+
   return(
     <TaskListContext.Provider 
       value={{
         tasks, 
         addTask, 
         removeTask, 
-        clearList
+        clearList,
+        findItem,
+        editTask, 
+        editItem
         }} >
       {props.children}
     </TaskListContext.Provider>
