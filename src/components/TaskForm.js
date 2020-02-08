@@ -1,58 +1,53 @@
-import React, {useContext, useState, useEffect } from 'react';
-import {TaskListContext} from '../context/TaskListContent';
+import React, { useState, useContext, useEffect } from 'react'
+import { TaskListContext } from '../context/TaskListContent'
 
 const TaskForm = () => {
-  const { addTask, clearList, editItem, editTask } = useContext(TaskListContext);
-
-  const [title, setTitle] = useState('');
-
-  const handleChange = e => {
-    setTitle(e.target.value);
-  }
+  const { addTask, clearList, editTask, editItem } = useContext(TaskListContext)
+  const [title, setTitle] = useState('')
 
   const handleSubmit = e => {
-    e.preventDefault(); 
-    if(editItem === null ){
-    addTask(title);
-    setTitle('')
+    e.preventDefault()
+    if (!editItem) {
+      addTask(title)
+      setTitle('')
     } else {
-      editTask(title, editItem.id);
+      editTask(title, editItem.id)
     }
-  };
+  }
 
-  useEffect (() => {
-    if(editItem !== null) {
+  const handleChange = e => {
+    setTitle(e.target.value)
+  }
+
+  useEffect(() => {
+    if (editItem) {
       setTitle(editItem.title)
+      console.log(editItem)
     } else {
-      setTitle('');
+      setTitle('')
     }
-  }, [editItem]);
+  }, [editItem])
 
-  
   return (
-    <form onSubmit={handleSubmit} className='form'>
+    <form onSubmit={handleSubmit} className="form">
       <input
-        onChange={handleChange}
+        type="text"
+        placeholder="Add Task..."
         value={title}
-        type='text' 
-        className='task-input'
-        placeholder='Add Task'
+        onChange={handleChange}
         required
-        />
-        <div className='buttons'>
-        <button 
-          type='submit'
-          className='btn add-task-btn'>
-            Add Task
+        className="task-input"
+      />
+      <div className="buttons">
+        <button type="submit" className="btn add-task-btn">
+          {editItem ? 'Edit Task' : 'Add Task'}
         </button>
-        <button
-          onClick={clearList} 
-          className='btn clear-btn'>
-            Clear
+        <button className="btn clear-btn" onClick={clearList}>
+          Clear
         </button>
-        </div>
+      </div>
     </form>
   )
 }
 
-export default TaskForm;
+export default TaskForm
