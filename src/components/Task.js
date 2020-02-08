@@ -1,6 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
 
-const Task = ({task}) => {
+const Task = ({ task }) => {
   return (
     <li className='list-item'>
       <span>{task.title}</span>
