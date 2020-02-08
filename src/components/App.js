@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
+import Header from './Header';
 import TaskListContextProvider from '../context/TaskListContent';
 import "../App.css";
 
@@ -10,6 +11,7 @@ const App = () => {
     <TaskListContextProvider>
       <div className='container'>
         <div className='app-wrapper'>
+          <Header />
           <div className='main'>
             <TaskForm />
             <TaskList />
